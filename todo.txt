@@ -1,0 +1,13 @@
+draw random number distributions at each load
+
+create a function that will be responsible for drawing random number distributions
+
+create button to randomize distributions
+
+improve design of buttons, hover, active
+
+create distribution, propability bars below
+
+add clicks, q(a), Q(a) texts at rows below banditButtons
+
+make design responsive for larger screens
