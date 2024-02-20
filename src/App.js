@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BanditButtons from "./components/BanditButtons";
 import BanditDetails from "./components/BanditDetails";
+import { Distribution } from "./objects/Distribution.js";
 
 function App() {
   const [banditsData, updateBanditsData] = useState([
@@ -29,6 +30,28 @@ function App() {
       Q: 0,
     },
   ]);
+
+  useEffect(() => {
+    const initBanditsData = [];
+
+    // DUMMY DATA, TO CONFIGURE IN THE FUTURE
+    for (let i = 0; i < 4; i++) {
+      const banditData = {
+        id: i,
+        clicks: 0,
+        q: 0,
+        Q: 0,
+        distribution: new Distribution(),
+      };
+
+      banditData.q = banditData.distribution.q;
+      console.log(banditData.distribution.q)
+
+      initBanditsData.push(banditData);
+    }
+
+    updateBanditsData(initBanditsData);
+  }, []);
 
   const banditButtonClickHandler = (id) => {
     updateBanditsData((prevBanditsData) => {

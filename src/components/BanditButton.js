@@ -7,7 +7,7 @@ const BanditButton = ({ onButtonClick, data }) => {
 
   return (
     <div
-      className="rounded-full  border-2 border-emerald-800 h-[6em] w-[6em] shadow-md shadow-emerald-800"
+      className="rounded-full  border-[3px] border-emerald-800 h-[6em] w-[6em] shadow-md shadow-emerald-800 hover:cursor-pointer hover:bg-emerald-700 hover:shadow-lg hover:shadow-emerald-800 duration-300"
       onClick={buttonClickHandler}
     />
   );

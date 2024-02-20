@@ -1,3 +1,5 @@
+complete Distribution object
+
 draw random number distributions at each load
 
 create a function that will be responsible for drawing random number distributions
