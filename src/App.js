@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import BanditButtons from "./components/BanditButtons";
 import BanditDetails from "./components/BanditDetails";
 import { Distribution } from "./objects/Distribution.js";
+import Section from "./components/Section.js";
+import DistributionPanels from "./components/DistributionPanels.js";
 
 function App() {
   const [banditsData, updateBanditsData] = useState([
@@ -68,12 +70,21 @@ function App() {
   };
 
   return (
-    <div>
-      <BanditButtons
-        onBanditButtonClick={banditButtonClickHandler}
-        data={banditsData}
-      />
-      <BanditDetails data={banditsData} />
+    <div className="p-2">
+      <Section title="Actions">
+        <BanditButtons
+          onBanditButtonClick={banditButtonClickHandler}
+          data={banditsData}
+        />
+      </Section>
+
+      <Section title="Details">
+        <BanditDetails data={banditsData} />
+      </Section>
+
+      <Section title="Distributions">
+        <DistributionPanels data={banditsData} />
+      </Section>
     </div>
   );
 }

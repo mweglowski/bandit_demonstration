@@ -77,7 +77,6 @@ export class Distribution {
 
       fractions.push(fraction);
     }
-    console.log(fractions);
   }
 
   drawNumber() {}

@@ -5,7 +5,7 @@ const BanditDetail = ({ data }) => {
 
   return (
     // DETAIL
-    <div className="flex flex-1 flex-col items-center">
+    <div className="flex flex-1 flex-col items-center text-slate-400">
       {/* CLICK COUNT */}
       <p>{clicks}</p>
 
