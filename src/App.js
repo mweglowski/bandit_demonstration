@@ -45,7 +45,7 @@ function App() {
       };
 
       banditData.q = banditData.distribution.q;
-      console.log(banditData.distribution.q)
+      // console.log(banditData.distribution.q)
 
       initBanditsData.push(banditData);
     }
