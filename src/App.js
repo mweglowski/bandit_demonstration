@@ -6,32 +6,7 @@ import Section from "./components/Section.js";
 import DistributionPanels from "./components/DistributionPanels.js";
 
 function App() {
-  const [banditsData, updateBanditsData] = useState([
-    {
-      id: 0,
-      clicks: 0,
-      q: (Math.random() * 10).toFixed(2),
-      Q: 0,
-    },
-    {
-      id: 1,
-      clicks: 0,
-      q: (Math.random() * 10).toFixed(2),
-      Q: 0,
-    },
-    {
-      id: 2,
-      clicks: 0,
-      q: (Math.random() * 10).toFixed(2),
-      Q: 0,
-    },
-    {
-      id: 3,
-      clicks: 0,
-      q: (Math.random() * 10).toFixed(2),
-      Q: 0,
-    },
-  ]);
+  const [banditsData, updateBanditsData] = useState([]);
 
   useEffect(() => {
     const initBanditsData = [];

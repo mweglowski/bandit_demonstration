@@ -26,7 +26,7 @@ export class Distribution {
     // |   44%  |  20% |  36%  |
     // for each bar draw if it should be n numbers or range of numbers
     // | n fixed numbers -> 1, 5, 8 | or | range -> 5 - 20 |
-    let fractions = [];
+    this.fractions = [];
     for (let i = 0; i < this.fractionQuantity; i++) {
       let fraction = {
         id: i,
@@ -52,7 +52,7 @@ export class Distribution {
       let maxNumberFromPreviousFraction = 0;
       if (i !== 0) {
         maxNumberFromPreviousFraction =
-          fractions[i - 1].numbers[fractions[i - 1].numbers.length - 1];
+        this.fractions[i - 1].numbers[this.fractions[i - 1].numbers.length - 1];
       }
 
       // numbers -> fixed or range
@@ -75,7 +75,7 @@ export class Distribution {
       }
       fraction.numbers.sort((a, b) => a - b);
 
-      fractions.push(fraction);
+      this.fractions.push(fraction);
     }
   }
 
