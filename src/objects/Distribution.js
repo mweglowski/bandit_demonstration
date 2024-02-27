@@ -123,8 +123,6 @@ export class Distribution {
     // draw random point in percentage 0-100%
     const randomPoint = Math.round(Math.random() * 100);
 
-    // console.log(this.fractions);
-
     // we have to decide which fraction contains randomPoint
     let drawnFractionIndex = 0;
 
@@ -137,7 +135,6 @@ export class Distribution {
           randomPoint > currentPercent &&
           randomPoint <= currentPercent + fraction.areaPercentage
         ) {
-          // console.log("hurra! multiple fractions", i, randomPoint);
           drawnFractionIndex = i;
           break;
         }
@@ -145,11 +142,8 @@ export class Distribution {
       }
     }
 
-    // if (this.fractions.length === 1) console.log("hurra!", 0, randomPoint);
-
     // extracting number from fraction with drawnFractionIndex
     const drawnFraction = this.fractions[drawnFractionIndex];
-    // console.log(drawnFraction);
 
     let drawnNumber = 0
     // RANGE
@@ -157,16 +151,11 @@ export class Distribution {
       const downBoundary = drawnFraction.numbers[0]
       const upBoundary = drawnFraction.numbers[1]
       drawnNumber = downBoundary + Math.round(Math.random() * (upBoundary - downBoundary))
-      console.log(drawnFraction)
     // FIXED
     } else {
       const randomNumberIndex = Math.round(Math.random() * (drawnFraction.numbers.length - 1))
       drawnNumber = drawnFraction.numbers[randomNumberIndex]
-      console.log('fixed', randomNumberIndex)
-      console.log(drawnFraction)
     }
-
-    console.log(drawnNumber)
 
     return drawnNumber;
   }
