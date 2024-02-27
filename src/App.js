@@ -64,7 +64,7 @@ function App() {
   };
 
   return (
-    <div className="p-2">
+    <div className="p-2 max-w-[700px] mx-auto">
       <Section title="Actions">
         <BanditButtons
           onBanditButtonClick={banditButtonClickHandler}
