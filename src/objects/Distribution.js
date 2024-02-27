@@ -1,7 +1,7 @@
 export class Distribution {
   constructor() {
     // value that makes distribution more random
-    const magicValue = Math.round(Math.random() * 100, 2);
+    const magicValue = Math.round(Math.random() * 100);
 
     // divide into few fractions
     // |   30%  |  20% |  50%  |
@@ -9,17 +9,17 @@ export class Distribution {
 
     // fractions
     // |  1  |   2   |    3    |
-    this.fractionQuantity = Math.round(Math.random() * 4 + 1, 2);
+    this.fractionQuantity = Math.round(Math.random() * 4 + 1);
 
     // generating random distribution points and sorting them
     // | 22   33     75   93 |
     let fractionsPointsInPercantageDistribution = [];
     if (this.fractionQuantity !== 1) {
       for (let i = 0; i < this.fractionQuantity - 1; i++) {
-        let newPoint = Math.round(Math.random() * 100, 2);
+        let newPoint = Math.round(Math.random() * 100);
 
         while (newPoint > 95 || newPoint < 5) {
-          newPoint = Math.round(Math.random() * 100, 2);
+          newPoint = Math.round(Math.random() * 100);
         }
 
         fractionsPointsInPercantageDistribution.push(newPoint);
@@ -70,11 +70,11 @@ export class Distribution {
       // drawing numbers
       // FIXED
       if (fraction.isRange === 0) {
-        const fixedNumbersQuantity = Math.round(Math.random() * 4 + 1, 2);
+        const fixedNumbersQuantity = Math.round(Math.random() * 4 + 1);
 
         for (let i = 0; i < fixedNumbersQuantity; i++) {
           fraction.numbers.push(
-            maxPreviousNumber + Math.round(Math.random() * magicValue, 2)
+            maxPreviousNumber + Math.round(Math.random() * magicValue) + 1
           );
 
           // preventing from drawing same number again
@@ -83,9 +83,16 @@ export class Distribution {
         // RANGE
       } else {
         fraction.numbers = [
-          maxPreviousNumber + Math.round(Math.random() * magicValue, 2),
-          maxPreviousNumber + Math.round(Math.random() * magicValue, 2),
+          maxPreviousNumber + Math.round(Math.random() * magicValue),
+          maxPreviousNumber + Math.round(Math.random() * magicValue),
         ];
+
+        while (fraction.numbers[0] === fraction.numbers[1]) {
+          fraction.numbers = [
+            maxPreviousNumber + Math.round(Math.random() * magicValue),
+            maxPreviousNumber + Math.round(Math.random() * magicValue),
+          ];
+        }
       }
       fraction.numbers.sort((a, b) => a - b);
 
@@ -93,8 +100,6 @@ export class Distribution {
     }
 
     // calculating q (expected)
-    this.q = 0;
-
     let totalSum = 0;
     Array.from(this.fractions).forEach((fraction) => {
       let mean = 0;
@@ -112,9 +117,57 @@ export class Distribution {
     });
 
     this.q = Number((totalSum / 100).toFixed(2));
-
-    console.log(this.fractions);
   }
 
-  drawNumber() {}
+  drawNumber() {
+    // draw random point in percentage 0-100%
+    const randomPoint = Math.round(Math.random() * 100);
+
+    // console.log(this.fractions);
+
+    // we have to decide which fraction contains randomPoint
+    let drawnFractionIndex = 0;
+
+    let currentPercent = 0;
+    if (this.fractions.length !== 1) {
+      for (let i = 0; i < this.fractions.length; i++) {
+        const fraction = this.fractions[i];
+
+        if (
+          randomPoint > currentPercent &&
+          randomPoint <= currentPercent + fraction.areaPercentage
+        ) {
+          // console.log("hurra! multiple fractions", i, randomPoint);
+          drawnFractionIndex = i;
+          break;
+        }
+        currentPercent += fraction.areaPercentage;
+      }
+    }
+
+    // if (this.fractions.length === 1) console.log("hurra!", 0, randomPoint);
+
+    // extracting number from fraction with drawnFractionIndex
+    const drawnFraction = this.fractions[drawnFractionIndex];
+    // console.log(drawnFraction);
+
+    let drawnNumber = 0
+    // RANGE
+    if (drawnFraction.isRange === 1) {
+      const downBoundary = drawnFraction.numbers[0]
+      const upBoundary = drawnFraction.numbers[1]
+      drawnNumber = downBoundary + Math.round(Math.random() * (upBoundary - downBoundary))
+      console.log(drawnFraction)
+    // FIXED
+    } else {
+      const randomNumberIndex = Math.round(Math.random() * (drawnFraction.numbers.length - 1))
+      drawnNumber = drawnFraction.numbers[randomNumberIndex]
+      console.log('fixed', randomNumberIndex)
+      console.log(drawnFraction)
+    }
+
+    console.log(drawnNumber)
+
+    return drawnNumber;
+  }
 }
