@@ -34,9 +34,24 @@ function App() {
     updateBanditsData((prevBanditsData) => {
       return prevBanditsData.map((bandit) => {
         if (bandit.id === id) {
+          const target = bandit.distribution.drawNumber();
+          const old_estimate = bandit.Q;
+          const step_size = 1 / bandit.clicks;
+
           return {
             ...bandit,
             clicks: bandit.clicks + 1,
+            // INCREMENTAL ACTION VALUE ESTIMATION FORMULA
+            // Qn+1 = Qn + 1/n(Rn - Qn)
+            Q:
+              bandit.clicks === 0
+                ? target
+                : Number(
+                    (
+                      old_estimate +
+                      step_size * (target - old_estimate)
+                    ).toFixed(2)
+                  ),
           };
         }
         return bandit;
