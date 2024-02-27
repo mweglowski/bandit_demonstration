@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# K-Armed Bandit Problem Simulator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a React-based simulator for the k-armed bandit problem, designed to test and visualize reinforcement learning strategies with an interactive UI styled using Tailwind CSS.
 
-## Available Scripts
+## Built With
 
-In the project directory, you can run:
+- [React](https://reactjs.org/) - A JavaScript library for building user interfaces.
+- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework for rapid UI development.
 
-### `npm start`
+## Quickstart
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+First, ensure you have [Node.js](https://nodejs.org/) installed to manage your project's dependencies.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Clone the project and install dependencies:
 
-### `npm test`
+```sh
+git clone https://github.com/mweglowski/bandit_demonstration.git
+cd bandit_demonstration
+npm install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To run the application in development mode:
 
-### `npm run build`
+```sh
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This will open the simulator in your default web browser. For production builds, you can use:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```sh
+npm run build
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Features
 
-### `npm run eject`
+- Multiple bandits with unique probabilistic reward distributions.
+- Interactive interface for 'pulling' bandit arms, built with React.
+- Responsive and modern UI using Tailwind CSS.
+- Visualization of action counts and estimated values.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Incremental Update Rule used in Reinforcement Learning
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The simulator updates the estimated action value \( Q \) using the formula:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+\[ Q_{n+1} = Q_n + \frac{1}{n} \cdot (R_n - Q_n) \]
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+where \( Q_{n+1} \) is the new estimate, \( Q_n \) is the current estimate, \( R_n \) is the reward received, and \( n \) is the number of times the action has been chosen.
 
-## Learn More
+## Usage
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+After launching the simulator, interact with the UI by selecting a bandit to 'pull'. Observe the algorithm's performance and how estimated values update based on the reward distributions.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributing
 
-### Code Splitting
+I welcome contributions! If you have suggestions or are interested in improving the k-armed bandit simulator, please feel free to fork the repository, make changes, and submit a pull request.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## License
 
-### Analyzing the Bundle Size
+This project is open-sourced under the MIT License - see the [LICENSE](LICENSE.md) file for details.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+*Inspired by the foundational reinforcement learning work of Sutton and Barto.*
