@@ -1,13 +1,5 @@
-create a function that will be responsible for drawing random number distributions (move logic in constructor to method)
-
 create button to randomize distributions
-
-make responsive design  for larger screens
-
-add small notification card that will show what numbers relate to specific percentage bar
 
 put images in documentation
 
 deploy this project on vercel
-
-add box-shadow for percentage bars
