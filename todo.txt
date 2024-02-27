@@ -4,14 +4,8 @@ create button to randomize distributions
 
 make responsive design  for larger screens
 
-fix 0% areaPercentage error
-
 add small notification card that will show what numbers relate to specific percentage bar
-
-assign initial colors for each percentageBar (for each fraction in Distribution object)
 
 add logic for calculating Q(a) (estimated)
 
 calculate q(a) (expected) in Distribution object
-
-change bandit button color to more turquoise
