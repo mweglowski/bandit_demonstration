@@ -1,19 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 const PercentageBar = ({ data, width }) => {
-  const { areaPercentage: percentage, numbers } = data;
-  const [color, setColor] = useState("");
-
-  useEffect(() => {
-    const green = 50;
-    const blue = 90;
-
-    const initialColor = `rgb(0, ${Math.round(
-      Math.random() * 90 + green
-    )}, ${Math.round(Math.random() * 50 + blue)})`;
-
-    setColor(initialColor);
-  }, []);
+  const { areaPercentage: percentage, numbers, color } = data;
 
   return (
     <div
