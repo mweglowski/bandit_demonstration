@@ -40,15 +40,29 @@ npm run build
 
 ## Incremental Update Rule used in Reinforcement Learning
 
-The simulator updates the estimated action value \( Q \) using the formula:
+The simulator updates the estimated action value Q using the formula:
 
-\[ Q_{n+1} = Q_n + \frac{1}{n} \cdot (R_n - Q_n) \]
+`Q(n+1) = Q(n) + (1/n) * (Rn - Q(n))`
 
-where \( Q_{n+1} \) is the new estimate, \( Q_n \) is the current estimate, \( R_n \) is the reward received, and \( n \) is the number of times the action has been chosen.
+Where:
+- `Q(n+1)` is the new estimate,
+- `Q(n)` is the current estimate,
+- `Rn` is the reward received,
+- `n` is the number of times the action has been chosen.
 
 ## Usage
 
 After launching the simulator, interact with the UI by selecting a bandit to 'pull'. Observe the algorithm's performance and how estimated values update based on the reward distributions.
+
+## Image Previews
+
+### Mobile Preview
+
+![Mobile Preview](URL_FOR_MOBILE_PREVIEW)
+
+### Desktop Preview
+
+![Desktop Preview](URL_FOR_DESKTOP_PREVIEW)
 
 ## Contributing
 
@@ -61,3 +75,4 @@ This project is open-sourced under the MIT License - see the [LICENSE](LICENSE.m
 ---
 
 *Inspired by the foundational reinforcement learning work of Sutton and Barto.*
+
