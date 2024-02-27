@@ -6,6 +6,8 @@ make responsive design  for larger screens
 
 add small notification card that will show what numbers relate to specific percentage bar
 
-add logic for calculating Q(a) (estimated)
+put images in documentation
 
-calculate q(a) (expected) in Distribution object
+deploy this project on vercel
+
+add box-shadow for percentage bars

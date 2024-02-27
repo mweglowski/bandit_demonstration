@@ -8,7 +8,8 @@ import DistributionPanels from "./components/DistributionPanels.js";
 function App() {
   const [banditsData, updateBanditsData] = useState([]);
 
-  useEffect(() => {
+  const generateBanditsData = () => {
+    console.log('randomizing')
     const initBanditsData = [];
 
     // DUMMY DATA, TO CONFIGURE IN THE FUTURE
@@ -22,12 +23,15 @@ function App() {
       };
 
       banditData.q = banditData.distribution.q;
-      // console.log(banditData.distribution.q)
 
       initBanditsData.push(banditData);
     }
 
     updateBanditsData(initBanditsData);
+  };
+
+  useEffect(() => {
+    generateBanditsData();
   }, []);
 
   const banditButtonClickHandler = (id) => {
@@ -73,7 +77,10 @@ function App() {
       </Section>
 
       <Section title="Distributions">
-        <DistributionPanels data={banditsData} />
+        <DistributionPanels
+          data={banditsData}
+          onRandomizeButtonClick={generateBanditsData}
+        />
       </Section>
     </div>
   );
