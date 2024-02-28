@@ -1,4 +1,15 @@
-create button to randomize distributions
+add run agent button
+create modal that will present agent that decides on its own what action to choose
+enable user to set epsilon value
+THIS SHOULD LOOK LIKE THIS
+| epsilon |  5  |         | run |
+          1     2   3    4    
+                         🤖34
+          🤖12
+				 						🤖5
+										     🤖66
+				  🤖12
+Q(a)       12   0     5     50
 
 put images in documentation
 
