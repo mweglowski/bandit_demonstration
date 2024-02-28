@@ -9,7 +9,6 @@ function App() {
   const [banditsData, updateBanditsData] = useState([]);
 
   const generateBanditsData = () => {
-    console.log('randomizing')
     const initBanditsData = [];
 
     // DUMMY DATA, TO CONFIGURE IN THE FUTURE
@@ -20,6 +19,7 @@ function App() {
         q: 0,
         Q: 0,
         distribution: new Distribution(),
+        lastDrawnNumber: null,
       };
 
       banditData.q = banditData.distribution.q;
@@ -39,6 +39,7 @@ function App() {
       return prevBanditsData.map((bandit) => {
         if (bandit.id === id) {
           const target = bandit.distribution.drawNumber();
+          console.log(target)
           const old_estimate = bandit.Q;
           const step_size = 1 / bandit.clicks;
 
@@ -56,6 +57,7 @@ function App() {
                       step_size * (target - old_estimate)
                     ).toFixed(2)
                   ),
+            lastDrawnNumber: target,
           };
         }
         return bandit;
