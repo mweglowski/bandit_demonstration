@@ -1,9 +1,14 @@
 import React from "react";
 import DistributionPanel from "./DistributionPanel";
+import Button from "../UI/Button";
 
-const DistributionPanels = ({ data, onRandomizeButtonClick }) => {
-  const buttonClickHandler = () => {
+const DistributionPanels = ({ data, onRandomizeButtonClick, onRunAgentButtonClick }) => {
+  const randomizeButtonClickHandler = () => {
     onRandomizeButtonClick();
+  };
+
+  const runAgentButtonClickHandler = () => {
+    onRunAgentButtonClick();
   };
 
   return (
@@ -14,13 +19,9 @@ const DistributionPanels = ({ data, onRandomizeButtonClick }) => {
         ))}
       </div>
 
-      <div className="mt-2 flex">
-        <button
-          className="bg-black border-2 px-4 py-1 font-bold flex ml-auto rounded-md text-slate-400 border-slate-400 hover:border-slate-300 hover:text-slate-300 duration-300"
-          onClick={buttonClickHandler}
-        >
-          Randomize
-        </button>
+      <div className="mt-2 flex justify-between">
+        <Button onButtonClick={runAgentButtonClickHandler}>Run Agent</Button>
+        <Button onButtonClick={randomizeButtonClickHandler}>Randomize</Button>
       </div>
     </div>
   );

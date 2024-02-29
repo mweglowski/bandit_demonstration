@@ -1,5 +1,4 @@
 export const arePointsCorrectlyDistributed = (points) => {
-	console.log(points)
 	// values have to be sorted before comparing operation
   points.sort((a, b) => a - b);
 

@@ -11,10 +11,44 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
-
 .fade-in-animation {
   animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeInBackdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.9;
+  }
+}
+.fade-in-backdrop-animation {
+  animation: fadeInBackdrop 1s ease-in-out;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.fade-out-animation {
+  animation: fadeOut 1s ease-in-out;
+}
+
+.parameter-input-container {
+  @apply flex flex-col text-slate-600;
+}
+.parameter-input {
+  @apply w-[60px] rounded-md bg-slate-800 p-1 text-slate-500 outline-none placeholder:text-slate-600;
 }

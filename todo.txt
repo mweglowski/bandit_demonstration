@@ -11,6 +11,8 @@ THIS SHOULD LOOK LIKE THIS
 				  🤖12
 Q(a)       12   0     5     50
 
+move percent value to left when last fraction has percentage value < 5%
+
 put images in documentation
 
 deploy this project on vercel
