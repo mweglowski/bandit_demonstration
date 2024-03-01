@@ -109,6 +109,7 @@ function App() {
           <SimulationContent
             toggleDisplay={toggleBackdropDisplay}
             banditsData={banditsData}
+            updateBanditsData={updateBanditsData}
           />
         </Backdrop>
       ) : null}
