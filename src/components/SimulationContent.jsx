@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react";
 import Button from "../UI/Button";
 import BanditDetails from "./BanditDetails";
 import Section from "../UI/Section";
+import { allSame } from "../utils/allSame";
 
-const SimulationContent = ({ toggleDisplay, banditsData }) => {
-  // State to store actions
+const SimulationContent = ({
+  toggleDisplay,
+  banditsData,
+  updateBanditsData,
+}) => {
+  const [estimatedValues, setEstimatedValues] = useState([]);
   const [actions, setActions] = useState([]);
   const [epsilon, updateEpsilon] = useState(0.1);
   const [steps, updateSteps] = useState(5);
@@ -12,13 +17,47 @@ const SimulationContent = ({ toggleDisplay, banditsData }) => {
   const [isActive, setIsActive] = useState(true);
   const [isSimulationFinished, setIsSimulationFinished] = useState(false);
 
+  // useEffect(() => {
+  //   const initialEstimatedValues = banditsData.map((bandit) => bandit.Q);
+
+  //   setEstimatedValues(initialEstimatedValues);
+  // }, []);
+
   useEffect(() => {
     if (!isActive) return;
 
+    const initialEstimatedValues = banditsData.map((bandit) => bandit.Q);
+
+    setEstimatedValues(initialEstimatedValues);
+
     if (actions.length < steps) {
       const intervalId = setInterval(() => {
-        const newAction = `Action ${actions.length + 1}`;
-        setActions((prevActions) => [...prevActions, newAction]);
+        // AGENT DECIDES WHAT ACTION TO CHOOSE
+        // FIRSTLY FINDS MAX Q(a) 
+        // AND IF Math.random() < EPSILON, AGENT DECIDES TO CHOOSE ANOTHER ACTION (EXPLORATION, NON-GREEDY)
+        // IF EPSILON === 0 (EXPLOITATION, GREEDY)
+
+        let nextAction = -1;
+        if (allSame(estimatedValues)) {
+          // SELECT RANDOM ACTION
+          nextAction = Math.round(Math.random() * 4);
+        } else {
+          // SELECT ACTION WITH THE HIGHEST ESTIMATED VALUE
+          nextAction = estimatedValues.index(Math.max(estimatedValues));
+
+          // CHECK IF Math.random() < EPSILON, IF YES CHECK ANOTHER RANDOM ACTION
+          if (Math.random() < epsilon) {
+            const actionsWithLowerValues = [0, 1, 2, 3].filter(
+              (action) => action != nextAction
+            );
+
+            const nextActionIndex = Math.round(Math.random() * actionsWithLowerValues.length)
+            nextAction = actionsWithLowerValues[nextActionIndex]
+          }
+        }
+
+        // ADD ACTION TO actions
+        setActions((prevActions) => [...prevActions, nextAction]);
       }, delay * 1000); // ms
 
       return () => clearInterval(intervalId);
@@ -41,11 +80,13 @@ const SimulationContent = ({ toggleDisplay, banditsData }) => {
 
     updateEpsilon(e.target.current.value);
   };
+
   const stepChangeHandler = (e) => {
     e.preventDefault();
 
     updateSteps(e.target.current.value);
   };
+
   const delayChangeHandler = (e) => {
     e.preventDefault();
 
@@ -96,14 +137,32 @@ const SimulationContent = ({ toggleDisplay, banditsData }) => {
       </Section>
 
       {/* AGENT ACTIONS TABLE */}
-      <div className="h-[60vh] overflow-auto">
-        <p>Agent Actions:</p>
-        {actions.map((action, index) => (
-          <div key={index} className="fade-in-animation">
-            {action}
+      <Section title="Agent Actions">
+        <div className="h-[50vh] overflow-auto">
+          {/* AGENT INDEX ROW */}
+          <div className="flex gap-2">
+            <div className="w-full text-center rounded-md bg-slate-800 text-slate-400">
+              Action 1
+            </div>
+            <div className="w-full text-center rounded-md bg-slate-800 text-slate-400">
+              Action 2
+            </div>
+            <div className="w-full text-center rounded-md bg-slate-800 text-slate-400">
+              Action 3
+            </div>
+            <div className="w-full text-center rounded-md bg-slate-800 text-slate-400">
+              Action 4
+            </div>
           </div>
-        ))}
-      </div>
+
+          {/* AGENT DECISIONS RECORDS */}
+          {actions.map((action, index) => (
+            <div key={index} className="fade-in-animation">
+              {action}
+            </div>
+          ))}
+        </div>
+      </Section>
 
       {/* CONTROL BUTTONS */}
       <div className="flex justify-evenly">
