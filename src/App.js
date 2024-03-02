@@ -3,13 +3,13 @@ import { Distribution } from "./objects/Distribution";
 import BanditButtons from "./components/BanditButtons";
 import BanditDetails from "./components/BanditDetails";
 import DistributionPanels from "./components/DistributionPanels";
-import SimulationContent from "./components/SimulationContent";
+import SimulationContent from "./components/Simulation/SimulationContent";
 import Section from "./UI/Section";
 import Backdrop from "./UI/Backdrop";
 
 function App() {
   const [banditsData, updateBanditsData] = useState([]);
-  const [isBackdropDisplayed, setBackDropDisplay] = useState(true);
+  const [isBackdropDisplayed, setBackDropDisplay] = useState(false);
 
   const generateBanditsData = () => {
     const initBanditsData = [];
