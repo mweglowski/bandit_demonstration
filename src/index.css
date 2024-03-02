@@ -52,3 +52,43 @@ body {
 .parameter-input {
   @apply w-[60px] rounded-md bg-slate-800 p-1 text-slate-500 outline-none placeholder:text-slate-600;
 }
+
+.agent-action-record {
+  @apply w-full text-center rounded-md text-slate-500;
+  background-color: rgba(30, 41, 59, 0.5);
+}
+
+@keyframes popIn {
+  0% {
+    transform: translateY(10%);
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-10%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0%);
+  }
+}
+.pop-in-animation {
+  animation: popIn 1.5s ease-in-out;
+}
+
+@keyframes agentBestActionAnimation {
+  0% {
+    color: rgb(31, 107, 97);
+    background-color: rgb(21, 90, 66, 0.8);
+    box-shadow: 0 0 1em rgb(21, 90, 66, 0.8);
+  }
+  60% {
+    background-color: rgb(34, 193, 151, 0.8);
+    box-shadow: 0 0 1em rgb(34, 193, 151, 0.8);
+  }
+  80% {
+    background-color: rgba(30, 41, 59, 0.5);
+    box-shadow: none;
+    color: initial;
+  }
+}
