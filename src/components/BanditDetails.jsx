@@ -2,8 +2,10 @@ import React from "react";
 import BanditDetail from "./BanditDetail";
 import { useBanditContext } from "../context/BanditContext";
 
-const BanditDetails = ({ data }) => {
+const BanditDetails = ({ simulationData }) => {
   const { banditsData } = useBanditContext();
+
+  const dataToPass = simulationData ? simulationData : banditsData;
 
   return (
     <div className="w-100% flex">
@@ -12,7 +14,7 @@ const BanditDetails = ({ data }) => {
         <p>q(a)</p>
         <p>Q(a)</p>
       </div>
-      {banditsData.map((banditData) => (
+      {dataToPass.map((banditData) => (
         <BanditDetail data={banditData} key={`detail-${banditData.id}`} />
       ))}
     </div>

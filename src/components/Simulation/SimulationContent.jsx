@@ -29,8 +29,6 @@ const SimulationContent = ({ toggleDisplay }) => {
   };
 
   useEffect(() => {
-    // updateBestAction(findMaxValueIndex(banditsData.map((bandit) => bandit.q)));
-
     refreshSimulationData();
     setIsActive(true);
   }, [banditsData]);
@@ -161,7 +159,7 @@ const SimulationContent = ({ toggleDisplay }) => {
 
       {/* ACTION DETAILS */}
       <Section title="Details">
-        <BanditDetails data={simulationData} />
+        <BanditDetails simulationData={simulationData} />
       </Section>
 
       {/* AGENT ACTIONS TABLE */}
