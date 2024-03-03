@@ -77,7 +77,7 @@ function App() {
 
   return (
     <div>
-      <main className="p-2 max-w-[700px] mx-auto">
+      <main className="p-4 max-w-[700px] mx-auto">
         <Section title="Actions" animation="fade-in-animation">
           <BanditButtons
             onBanditButtonClick={banditButtonClickHandler}
