@@ -92,3 +92,23 @@ body {
     color: initial;
   }
 }
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+  @apply w-[6px] h-[12px];
+}
+::-webkit-scrollbar-track {
+  background: #182435;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a3949;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply cursor-pointer bg-slate-700;
+}
+
+/* .agent-actions-container {
+  overflow-y: auto;
+  scrollbar-gutter: stable both-edges;
+} */
