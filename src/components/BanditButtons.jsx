@@ -1,14 +1,17 @@
 import React from "react";
 import BanditButton from "./BanditButton";
+import { useBanditContext } from "../context/BanditContext";
 
 const BanditButtons = ({ onBanditButtonClick, data }) => {
+  const { banditsData, banditButtonClickHandler } = useBanditContext();
+
   return (
     <div className="w-100% flex justify-center">
-      {data.map((banditButtonData) => (
+      {banditsData.map((banditButtonData) => (
         <BanditButton
           data={banditButtonData}
           key={banditButtonData.id}
-          onButtonClick={onBanditButtonClick}
+          onButtonClick={banditButtonClickHandler}
         />
       ))}
     </div>

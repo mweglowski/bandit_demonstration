@@ -4,24 +4,19 @@ import BanditDetails from "../BanditDetails";
 import Section from "../../UI/Section";
 import AgentActions from "./AgentActions";
 import AgentActionsIndexRow from "./AgentActionsIndexRow";
-import { findMaxValueIndex } from "../../utils/findMaxValueIndex";
 import { getNextAction } from "../../utils/getNextAction";
+import { useBanditContext } from "../../context/BanditContext";
 
-const SimulationContent = ({
-  toggleDisplay,
-  banditsData,
-  // updateBanditsData,
-}) => {
-  // const [estimatedValues, setEstimatedValues] = useState([]);
+const SimulationContent = ({ toggleDisplay }) => {
   const [rewards, setRewards] = useState([]);
   const [actions, setActions] = useState([]);
   const [epsilon, updateEpsilon] = useState(0.1);
   const [steps, updateSteps] = useState(100);
-  const [delay, updateDelay] = useState(0.5); // seconds
+  const [delay, updateDelay] = useState(0.3); // seconds
   const [isActive, setIsActive] = useState(false);
   const [isSimulationFinished, setIsSimulationFinished] = useState(false);
   const [simulationData, updateSimulationData] = useState([]);
-  // const [bestAction, updateBestAction] = useState(-1);
+  const { banditsData } = useBanditContext();
 
   const refreshSimulationData = () => {
     const initializedBanditsData = banditsData.map((bandit) => ({
@@ -30,14 +25,12 @@ const SimulationContent = ({
       Q: 0,
     }));
 
-    const expectedValues = initializedBanditsData.map((bandit) => bandit.q);
-    // const bestActionIndex = findMaxValueIndex(expectedValues);
-
-    // updateBestAction(bestActionIndex);
     updateSimulationData(initializedBanditsData);
   };
 
   useEffect(() => {
+    // updateBestAction(findMaxValueIndex(banditsData.map((bandit) => bandit.q)));
+
     refreshSimulationData();
     setIsActive(true);
   }, [banditsData]);
@@ -183,10 +176,6 @@ const SimulationContent = ({
           <AgentActions
             actions={actions}
             rewards={rewards}
-            // bestAction={bestAction}
-            bestAction={findMaxValueIndex(
-              simulationData.map((bandit) => bandit.q)
-            )}
           />
         </div>
       </Section>

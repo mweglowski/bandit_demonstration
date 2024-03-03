@@ -1,7 +1,10 @@
 import React from "react";
 import BanditDetail from "./BanditDetail";
+import { useBanditContext } from "../context/BanditContext";
 
 const BanditDetails = ({ data }) => {
+  const { banditsData } = useBanditContext();
+
   return (
     <div className="w-100% flex">
       <div className="text-slate-500">
@@ -9,7 +12,7 @@ const BanditDetails = ({ data }) => {
         <p>q(a)</p>
         <p>Q(a)</p>
       </div>
-      {data.map((banditData) => (
+      {banditsData.map((banditData) => (
         <BanditDetail data={banditData} key={`detail-${banditData.id}`} />
       ))}
     </div>

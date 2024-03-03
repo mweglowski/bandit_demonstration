@@ -1,8 +1,11 @@
 import React from "react";
 import DistributionPanel from "./DistributionPanel";
 import Button from "../UI/Button";
+import { useBanditContext } from "../context/BanditContext";
 
 const DistributionPanels = ({ data, onRandomizeButtonClick, onRunAgentButtonClick }) => {
+  const { banditsData } = useBanditContext();
+
   const randomizeButtonClickHandler = () => {
     onRandomizeButtonClick();
   };
@@ -14,7 +17,7 @@ const DistributionPanels = ({ data, onRandomizeButtonClick, onRunAgentButtonClic
   return (
     <div>
       <div className="flex flex-col gap-4">
-        {data.map((panelData) => (
+        {banditsData.map((panelData) => (
           <DistributionPanel key={panelData.id} data={panelData} />
         ))}
       </div>
