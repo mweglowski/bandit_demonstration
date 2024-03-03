@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Distribution } from '../objects/Distribution';
-import { findMaxValueIndex } from '../utils/findMaxValueIndex';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { Distribution } from "../objects/Distribution";
+import { findMaxValueIndex } from "../utils/findMaxValueIndex";
 
 const BanditContext = createContext();
 
@@ -8,6 +8,7 @@ export const useBanditContext = () => useContext(BanditContext);
 
 export const BanditProvider = ({ children }) => {
   const [banditsData, setBanditsData] = useState([]);
+  const [bestAction, setBestAction] = useState(-1);
 
   const generateBanditsData = () => {
     let initBanditsData = [];
@@ -20,18 +21,14 @@ export const BanditProvider = ({ children }) => {
         Q: 0,
         distribution: new Distribution(),
         lastDrawnNumber: null,
-        best: false,
       };
 
       banditData.q = banditData.distribution.q;
-      
+
       initBanditsData.push(banditData);
     }
 
-    const expectedValues = initBanditsData.map(bandit => bandit.q)
-    const bestAction = findMaxValueIndex(expectedValues)
-    initBanditsData[bestAction]["best"] = true;
-
+    setBestAction(findMaxValueIndex(initBanditsData.map((bandit) => bandit.q)));
     setBanditsData(initBanditsData);
   };
 
@@ -39,7 +36,7 @@ export const BanditProvider = ({ children }) => {
     generateBanditsData();
   }, []);
 
-	const banditButtonClickHandler = (id) => {
+  const banditButtonClickHandler = (id) => {
     setBanditsData((prevBanditsData) => {
       return prevBanditsData.map((bandit) => {
         if (bandit.id === id) {
@@ -70,7 +67,9 @@ export const BanditProvider = ({ children }) => {
   };
 
   return (
-    <BanditContext.Provider value={{ banditsData, banditButtonClickHandler, generateBanditsData }}>
+    <BanditContext.Provider
+      value={{ banditsData, bestAction, banditButtonClickHandler, generateBanditsData }}
+    >
       {children}
     </BanditContext.Provider>
   );
