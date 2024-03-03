@@ -17,103 +17,96 @@ const SimulationContent = ({
   const [actions, setActions] = useState([]);
   const [epsilon, updateEpsilon] = useState(0.1);
   const [steps, updateSteps] = useState(100);
-  const [delay, updateDelay] = useState(0.1); // seconds
+  const [delay, updateDelay] = useState(0.5); // seconds
   const [isActive, setIsActive] = useState(false);
   const [isSimulationFinished, setIsSimulationFinished] = useState(false);
   const [simulationData, updateSimulationData] = useState([]);
   const [bestAction, updateBestAction] = useState(-1);
 
-  const setUpSimulationData = () => {
-    const resetedBanditsData = banditsData.map((bandit, index) => {
-      const simulationBandit = {
-        ...bandit,
-        clicks: 0,
-        Q: 0,
-      };
-      return simulationBandit;
-    });
+  const refreshSimulationData = () => {
+    const initializedBanditsData = banditsData.map((bandit) => ({
+      ...bandit,
+      clicks: 0,
+      Q: 0,
+    }));
 
-    const expectedValues = resetedBanditsData.map((bandit) => bandit.q);
+    const expectedValues = initializedBanditsData.map((bandit) => bandit.q);
     const bestActionIndex = findMaxValueIndex(expectedValues);
 
     updateBestAction(bestActionIndex);
-    updateSimulationData(resetedBanditsData);
+    updateSimulationData(initializedBanditsData);
   };
 
   useEffect(() => {
+    refreshSimulationData();
     setIsActive(true);
-
-    // RESET BANDITS DATA
-    setUpSimulationData();
-  }, []);
+  }, [banditsData]);
 
   useEffect(() => {
-    if (!isActive) return;
+    let intervalId;
 
-    // const initialEstimatedValues = simulationData.map((bandit) => 0);
+    const updateSimulation = () => {
+      if (actions.length < steps && isActive) {
+        const nextAction = getNextAction(
+          simulationData.map((bandit) => bandit.Q),
+          epsilon
+        );
+        let actionUpdated = false;
 
-    // setEstimatedValues(initialEstimatedValues);
+        const updatedSimulationData = simulationData.map((bandit, index) => {
+          if (index === nextAction) {
+            actionUpdated = true;
+            const target = bandit.distribution.drawNumber();
+            const old_estimate = bandit.Q;
+            const step_size = 1 / bandit.clicks;
 
-    if (actions.length <= steps) {
-      const intervalId = setInterval(() => {
-        // AGENT DECIDES WHAT ACTION TO CHOOSE
-        // FIRSTLY FINDS MAX Q(a)
-        // AND IF Math.random() < EPSILON, AGENT DECIDES TO CHOOSE ANOTHER ACTION (EXPLORATION, NON-GREEDY)
-        // IF EPSILON === 0 (EXPLOITATION, GREEDY)
-
-        const estimatedValues = simulationData.map((bandit) => bandit.Q);
-        const nextAction = getNextAction(estimatedValues, epsilon);
-
-        let nextReward = null;
-
-        updateSimulationData((prevBanditsData) => {
-          return prevBanditsData.map((bandit) => {
-            if (bandit.id === nextAction) {
-              const target = bandit.distribution.drawNumber();
-              const old_estimate = bandit.Q;
-              const step_size = 1 / bandit.clicks;
-              nextReward = target;
-
-              return {
-                ...bandit,
-                clicks: bandit.clicks + 1,
-                // INCREMENTAL ACTION VALUE ESTIMATION FORMULA
-                // Qn+1 = Qn + 1/n(Rn - Qn)
-                Q:
-                  bandit.clicks === 0
-                    ? target
-                    : Number(
-                        (
-                          old_estimate +
-                          step_size * (target - old_estimate)
-                        ).toFixed(2)
-                      ),
-                lastDrawnNumber: target,
-              };
-            }
-            return bandit;
-          });
+            // INCREMENTAL ACTION VALUE ESTIMATION FORMULA
+            // Qn+1 = Qn + 1/n(Rn - Qn)
+            return {
+              ...bandit,
+              clicks: bandit.clicks + 1,
+              Q:
+                bandit.clicks === 0
+                  ? target
+                  : Number(
+                      (
+                        old_estimate +
+                        step_size * (target - old_estimate)
+                      ).toFixed(2)
+                    ),
+              lastDrawnNumber: target,
+            };
+          }
+          return bandit;
         });
 
-        // UDPATE LAST REWARDS
-        setRewards((prevRewards) => [...prevRewards, nextReward]);
+        if (actionUpdated) {
+          updateSimulationData(updatedSimulationData);
+          setActions((prevActions) => [...prevActions, nextAction]);
+          setRewards((prevRewards) => [
+            ...prevRewards,
+            updatedSimulationData[nextAction].lastDrawnNumber,
+          ]);
+        }
+      } else {
+        setIsActive(false);
+        setIsSimulationFinished(true);
+        clearInterval(intervalId);
+      }
+    };
 
-        // ADD ACTION TO actions
-        setActions((prevActions) => [...prevActions, nextAction]);
-      }, delay * 1000); // ms
-
-      return () => clearInterval(intervalId);
-    } else {
-      setIsActive(false);
-      setIsSimulationFinished(true);
+    if (isActive) {
+      intervalId = setInterval(updateSimulation, delay * 1000);
     }
-  }, [actions, isActive]);
+
+    return () => clearInterval(intervalId);
+  }, [isActive, actions, steps, delay, simulationData, epsilon]);
 
   const toggleAgentActivity = () =>
     setIsActive((prevIsActive) => !prevIsActive);
 
   const resetSimulation = () => {
-    setUpSimulationData();
+    refreshSimulationData();
     setActions([]);
     setRewards([]);
     setIsActive(true);
@@ -180,10 +173,12 @@ const SimulationContent = ({
 
       {/* AGENT ACTIONS TABLE */}
       <Section title="Agent Actions">
-        <div className="h-[50vh] overflow-auto">
-          {/* AGENT INDEX ROW */}
+        {/* AGENT INDEX ROW */}
+        <div className={rewards.length > 10 ? "pr-[6px]" : ""}>
           <AgentActionsIndexRow />
+        </div>
 
+        <div className="h-[50vh] overflow-auto agent-actions-container">
           {/* AGENT DECISIONS RECORDS */}
           <AgentActions
             actions={actions}
