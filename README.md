@@ -59,10 +59,18 @@ After launching the simulator, interact with the UI by selecting a bandit to 'pu
 ### Mobile Preview
 
 ![Mobile Preview](URL_FOR_MOBILE_PREVIEW)
+![Mobile Preview](URL_FOR_MOBILE_PREVIEW)
+![Mobile Preview](URL_FOR_MOBILE_PREVIEW)
 
 ### Desktop Preview
 
 ![Desktop Preview](URL_FOR_DESKTOP_PREVIEW)
+![Desktop Preview](URL_FOR_DESKTOP_PREVIEW)
+![Desktop Preview](URL_FOR_DESKTOP_PREVIEW)
+
+## Website
+
+https://bandit-problem-simulator.vercel.app/
 
 ## Contributing
 
