@@ -21,7 +21,7 @@ const SimulationContent = ({
   const [isActive, setIsActive] = useState(false);
   const [isSimulationFinished, setIsSimulationFinished] = useState(false);
   const [simulationData, updateSimulationData] = useState([]);
-  const [bestAction, updateBestAction] = useState(-1);
+  // const [bestAction, updateBestAction] = useState(-1);
 
   const refreshSimulationData = () => {
     const initializedBanditsData = banditsData.map((bandit) => ({
@@ -31,9 +31,9 @@ const SimulationContent = ({
     }));
 
     const expectedValues = initializedBanditsData.map((bandit) => bandit.q);
-    const bestActionIndex = findMaxValueIndex(expectedValues);
+    // const bestActionIndex = findMaxValueIndex(expectedValues);
 
-    updateBestAction(bestActionIndex);
+    // updateBestAction(bestActionIndex);
     updateSimulationData(initializedBanditsData);
   };
 
@@ -183,7 +183,10 @@ const SimulationContent = ({
           <AgentActions
             actions={actions}
             rewards={rewards}
-            bestAction={bestAction}
+            // bestAction={bestAction}
+            bestAction={findMaxValueIndex(
+              simulationData.map((bandit) => bandit.q)
+            )}
           />
         </div>
       </Section>
