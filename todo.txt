@@ -7,3 +7,95 @@ maybe create Agent object and use it in SimulationContent
 put images in documentation
 
 deploy this project on vercel
+
+
+
+
+
+
+  
+  // const setUpSimulationData = () => {
+  //   const resetedBanditsData = banditsData.map((bandit, index) => {
+  //     const simulationBandit = {
+  //       ...bandit,
+  //       clicks: 0,
+  //       Q: 0,
+  //     };
+  //     return simulationBandit;
+  //   });
+
+  //   const expectedValues = resetedBanditsData.map((bandit) => bandit.q);
+  //   const bestActionIndex = findMaxValueIndex(expectedValues);
+
+  //   updateBestAction(bestActionIndex);
+  //   updateSimulationData(resetedBanditsData);
+  // };
+
+  // useEffect(() => {
+  //   setIsActive(true);
+
+  //   // RESET BANDITS DATA
+  //   setUpSimulationData();
+  // }, []);
+
+  // useEffect(() => {
+  //   if (!isActive) return;
+
+  //   // const initialEstimatedValues = simulationData.map((bandit) => 0);
+
+  //   // setEstimatedValues(initialEstimatedValues);
+
+  //   if (actions.length <= steps) {
+  //     const intervalId = setInterval(() => {
+  //       // AGENT DECIDES WHAT ACTION TO CHOOSE
+  //       // FIRSTLY FINDS MAX Q(a)
+  //       // AND IF Math.random() < EPSILON, AGENT DECIDES TO CHOOSE ANOTHER ACTION (EXPLORATION, NON-GREEDY)
+  //       // IF EPSILON === 0 (EXPLOITATION, GREEDY)
+
+  //       const estimatedValues = simulationData.map((bandit) => bandit.Q);
+  //       const nextAction = getNextAction(estimatedValues, epsilon);
+
+  //       let nextReward = null;
+
+  //       updateSimulationData((prevBanditsData) => {
+  //         return prevBanditsData.map((bandit) => {
+  //           if (bandit.id === nextAction) {
+  //             const target = bandit.distribution.drawNumber();
+  //             const old_estimate = bandit.Q;
+  //             const step_size = 1 / bandit.clicks;
+  //             nextReward = target;
+
+  //             return {
+  //               ...bandit,
+  //               clicks: bandit.clicks + 1,
+  //               // INCREMENTAL ACTION VALUE ESTIMATION FORMULA
+  //               // Qn+1 = Qn + 1/n(Rn - Qn)
+  //               Q:
+  //                 bandit.clicks === 0
+  //                   ? target
+  //                   : Number(
+  //                       (
+  //                         old_estimate +
+  //                         step_size * (target - old_estimate)
+  //                       ).toFixed(2)
+  //                     ),
+  //               lastDrawnNumber: target,
+  //             };
+  //           }
+  //           return bandit;
+  //         });
+  //       });
+
+  //       // UDPATE LAST REWARDS
+  //       setRewards((prevRewards) => [...prevRewards, nextReward]);
+
+  //       // ADD ACTION TO actions
+  //       setActions((prevActions) => [...prevActions, nextAction]);
+  //     }, delay * 1000); // ms
+
+  //     return () => clearInterval(intervalId);
+  //   } else {
+  //     setIsActive(false);
+  //     setIsSimulationFinished(true);
+  //   }
+  // }, [actions, isActive]);
