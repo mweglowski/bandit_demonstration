@@ -1,4 +1,4 @@
-# K-Armed Bandit Problem Simulator
+# Multi-Armed Bandit Problem Simulator
 This is a React-based simulator for the k-armed bandit problem, designed to test and visualize reinforcement learning strategies with an interactive UI styled using Tailwind CSS.
 
 ## Built With
