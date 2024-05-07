@@ -68,9 +68,6 @@ Explore the simulator online at https://bandit-problem-simulator.vercel.app/.
 ## Contributing
 I welcome contributions! If you have suggestions or are interested in improving the k-armed bandit simulator, please feel free to fork the repository, make changes, and submit a pull request.
 
-## License
-This project is open-sourced under the MIT License - see the [LICENSE](LICENSE.md) file for details.
-
 ---
 
 *Inspired by the foundational reinforcement learning work of Sutton and Barto.*
